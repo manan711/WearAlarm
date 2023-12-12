@@ -13,35 +13,36 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import com.google.gson.Gson;
 
 public class AlarmUtils {
 
+    private static final String ALARM_PREFERENCES = "AlarmPreferences";
+
     public static void saveAlarm(Alarm alarm, Context context) {
-        if (alarm != null) {
-            SharedPreferences sharedPref = context.getSharedPreferences("alarm_details", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString(alarm.getId(), alarm.getAlarmText());
-            editor.commit();
-        }
+        SharedPreferences sharedPreferences = context.getSharedPreferences(ALARM_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(alarm);
+
+        editor.putString(alarm.getId(), json);
+        editor.commit();
     }
 
-    public static List<Alarm> getAllAlarms(Context context) {
-        SharedPreferences sharedPref = context.getSharedPreferences("alarm_details", Context.MODE_PRIVATE);
+    public static List<Alarm> loadAlarms(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(ALARM_PREFERENCES, MODE_PRIVATE);
+        Map<String, ?> allEntries = sharedPreferences.getAll();
+
         List<Alarm> alarmList = new ArrayList<>();
-        Map<String, ?> map = sharedPref.getAll();
+        Gson gson = new Gson();
 
-        Set set = map.entrySet();
-        Iterator itr = set.iterator();
-
-        while(itr.hasNext())
-        {
-            Map.Entry entry = (Map.Entry)itr.next();
-            String savedAlarm = (String) entry.getValue();
-            if(savedAlarm != null) {
-                Alarm alarm = new Alarm(entry.getKey().toString(), savedAlarm);
-                alarmList.add(alarm);
-            }
+        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+            String json = (String) entry.getValue();
+            Alarm alarm = gson.fromJson(json, Alarm.class);
+            alarmList.add(alarm);
         }
+
         return alarmList;
     }
 

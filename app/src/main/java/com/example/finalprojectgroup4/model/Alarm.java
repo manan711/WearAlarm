@@ -3,6 +3,7 @@ package com.example.finalprojectgroup4.model;
 public class Alarm {
     private String id = "";
     private String alarmText = "";
+    private boolean isEnabled;
 
     public Alarm(String id, String alarmText) {
         this.id = id;
@@ -23,5 +24,11 @@ public class Alarm {
 
     public void setAlarmText(String alarmText) {
         this.alarmText = alarmText;
+    }
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
     }
 }

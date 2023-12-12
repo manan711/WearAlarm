@@ -4,7 +4,6 @@ package com.example.finalprojectgroup4.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void init() {
         setLayout();
-        initAlarm();
+//        initAlarm();
     }
 
     private void setLayout() {
@@ -61,16 +60,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    private void initAlarm() {
-        if (!Objects.equals(alarmName, "null")) {
-            Alarm alarm = createAlarm(null, alarmName);
-            updateAlarm(alarm, ACTION_ADD);
-        }
-    }
+//    private void initAlarm() {
+//        if (!Objects.equals(alarmName, "null")) {
+//            Alarm alarm = createAlarm(null, alarmName);
+//            updateAlarm(alarm, ACTION_ADD);
+//        }
+//    }
 
     private Alarm createAlarm(String id, String alarm) {
         if (id == null) {
-            id = String.valueOf(System.currentTimeMillis());
+            id = randomID();
         }
         return new Alarm(id, alarm);
     }
@@ -78,14 +77,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void updateAlarm(Alarm alarm, int action) {
         if (action == ACTION_ADD) {
             AlarmUtils.saveAlarm(alarm, this);
-
+            myAlarms.add(alarm);
         }
         updateAlarmAdapter();
     }
 
     private void updateAlarmAdapter() {
         myAlarms.clear();
-        myAlarms.addAll(AlarmUtils.getAllAlarms(this));
+//        myAlarms.addAll(AlarmUtils.getAllAlarms(this));
+        myAlarms.addAll(AlarmUtils.loadAlarms(this));
         bindAdapter();
     }
 
@@ -108,18 +108,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-            String alarmName = data.getStringExtra("alarmName"); // Use the same key to retrieve the value
+            this.alarmName = data.getStringExtra("alarmName"); // Use the same key to retrieve the value
 
-            if (alarmName != null) {
+            if (this.alarmName != null) {
                 // Do something with the value
-                this.alarmName = alarmName;
-                mainBinding.tvAlarm.setText(alarmName);
+                Alarm newAlarm = createAlarm(null, this.alarmName);
+                updateAlarm(newAlarm, ACTION_ADD);
             }
         }
-        updateAlarmAdapter();
     }
 
-
+    private String randomID(){
+        return String.valueOf(System.currentTimeMillis());
+    }
 
     @Override
     public void onClick(View v) {

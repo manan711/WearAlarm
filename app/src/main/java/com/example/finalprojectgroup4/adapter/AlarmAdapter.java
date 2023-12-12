@@ -3,6 +3,7 @@ package com.example.finalprojectgroup4.adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,14 +41,30 @@ public class AlarmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             super(rowBinding.getRoot());
             this.recyclerRowBinding = rowBinding;
         }
-        void bindView(final String alarmText, final int position) {
-            recyclerRowBinding.alarmToggle.setText(alarmText);
+        void bindView(final Alarm alarm, final int position) {
+            recyclerRowBinding.alarmToggle.setText(alarm.getAlarmText());
+            recyclerRowBinding.alarmToggle.setChecked(alarm.isEnabled());
+            recyclerRowBinding.alarmToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    alarm.setEnabled(isChecked);
+                    //if (isChecked) {
+                        // Enable the alarm
+                        //enableAlarm(alarm);
+                   // } else {
+                        // Disable the alarm
+                        //disableAlarm(alarm);
+                   // }
+                }
+            });
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((ViewHolder) holder).bindView(myAlarms.get(position).getAlarmText(),position);
+        Alarm alarm = myAlarms.get(position);
+        ((ViewHolder) holder).bindView(myAlarms.get(position),position);
+//        holder.bindView(alarm,position);
     }
 
     @Override

@@ -45,5 +45,6 @@ dependencies {
     implementation("androidx.wear:wear:1.3.0")
     implementation("androidx.activity:activity:1.7.0")
     implementation ("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10")
+    implementation ("com.google.code.gson:gson:2.10.1")
 
 }
