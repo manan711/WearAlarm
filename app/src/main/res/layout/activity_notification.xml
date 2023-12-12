@@ -16,22 +16,24 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/btnAdd"
+            android:id="@+id/btnSnooze"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/round_button"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
-            android:text="@string/add_alarm" />
-        <TextView
-            android:id="@+id/tvAlarm"
+            android:layout_marginTop="20dp"
+            android:text="@string/snooze" />
+
+        <Button
+            android:id="@+id/btnStop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/select_a_time"/>
-        <androidx.wear.widget.WearableRecyclerView
-            android:id="@+id/wrcAlarm"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:background="@drawable/round_button"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/stop" />
+
     </LinearLayout>
 </androidx.wear.widget.BoxInsetLayout>

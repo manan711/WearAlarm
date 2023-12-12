@@ -6,21 +6,12 @@
     android:orientation="horizontal"
     android:paddingRight="25dp"
     android:paddingLeft="25dp"
-    android:layout_gravity="center">
-
-    <TextView
-        android:id="@+id/alarmTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.7"
-        android:text="@string/alarm"
-        />
+    android:gravity="center_horizontal">
 
     <Switch
         android:id="@+id/alarmToggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.3"
-        android:text=""
+        android:text="@string/alarm"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 </LinearLayout>
