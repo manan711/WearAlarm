@@ -10,5 +10,6 @@
         android:id="@+id/alarmToggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/alarm" />
+        android:text="@string/alarm"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 </LinearLayout>
