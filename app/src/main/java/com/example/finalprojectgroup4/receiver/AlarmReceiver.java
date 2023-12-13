@@ -6,7 +6,11 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 
 import androidx.core.app.NotificationCompat;
 
@@ -18,6 +22,21 @@ public class AlarmReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID = "100";
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        // Play sound
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        RingtoneManager.getRingtone(context, alarmSound).play();
+
+        // Vibrate
+        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        if (vibrator != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                vibrator.vibrate(1000);
+            }
+        }
+
         // Trigger the notification
         showNotification(context);
     }
