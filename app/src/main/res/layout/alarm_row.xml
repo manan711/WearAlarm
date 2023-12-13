@@ -6,10 +6,23 @@
     android:orientation="horizontal"
     android:gravity="center_horizontal">
 
-    <Switch
+    <TextView
         android:id="@+id/alarmToggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/alarm"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        android:layout_marginBottom="15dp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/btnEdit"
+        android:layout_width="74dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:text="@string/edit"
+        android:textSize="12sp" />
+
 </LinearLayout>
